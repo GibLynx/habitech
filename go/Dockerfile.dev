@@ -1,0 +1,21 @@
+# Pull base image
+FROM golang
+
+# Label this image as dev
+LABEL dev dev
+
+# Install dependencies
+RUN go get github.com/gocraft/web
+
+# Set exposed port and put it in env for easy access
+ARG PORT
+EXPOSE $PORT
+ENV PORT $PORT
+
+# Create a volume to point to the host directory containing the source code
+ARG WORKSPACE
+VOLUME $WORKSPACE
+WORKDIR $WORKSPACE
+
+# Set entrypoint to open a bash console
+ENTRYPOINT ["/bin/bash"]

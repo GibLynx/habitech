@@ -1,0 +1,15 @@
+# Pull base image
+FROM scratch
+
+# Label this image as prod
+LABEL prod prod
+
+# Set exposed port
+ARG PORT
+EXPOSE $PORT
+
+# Get the application executable
+COPY app /
+
+# Set entrypoint to run the application
+ENTRYPOINT ["/app"]

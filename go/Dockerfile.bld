@@ -1,0 +1,23 @@
+# Pull base image
+FROM golang
+
+# Label this image as bld
+LABEL bld bld
+
+# Install dependencies
+RUN go get github.com/gocraft/web
+
+# Identify the to-be exposed port and put it in env
+ARG PORT
+ENV PORT $PORT
+
+# Create a volume to point to the host directory containing the source code
+VOLUME /workspace
+WORKDIR /workspace
+
+# Environment variable such that binaries are statically linked
+ENV CGO_ENABLED 0
+
+# Set entrypoint and cmd to build application
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["go build -ldflags=\"-X main.PORT=$PORT\" -a -o app ."]
