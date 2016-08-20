@@ -13,9 +13,8 @@ EXPOSE $PORT
 ENV PORT $PORT
 
 # Create a volume to point to the host directory containing the source code
-ARG WORKSPACE
-VOLUME $WORKSPACE
-WORKDIR $WORKSPACE
+VOLUME /go/src/habitech
+WORKDIR /go/src/habitech
 
 # Set entrypoint to open a bash console
 ENTRYPOINT ["/bin/bash"]

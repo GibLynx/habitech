@@ -4,6 +4,9 @@ FROM golang
 # Label this image as bld
 LABEL bld bld
 
+# Environment variable such that binaries are statically linked
+ENV CGO_ENABLED 0
+
 # Install dependencies
 RUN go get github.com/gocraft/web
 
@@ -11,13 +14,14 @@ RUN go get github.com/gocraft/web
 ARG PORT
 ENV PORT $PORT
 
-# Create a volume to point to the host directory containing the source code
-VOLUME /workspace
-WORKDIR /workspace
+# Get the application builder script
+COPY make_app.sh /tmp
 
-# Environment variable such that binaries are statically linked
-ENV CGO_ENABLED 0
+# Create a volume to point to the host directory containing the source code
+VOLUME /go/src/habitech
+
+# Create a volume to point to the host directory to contain the output binary
+VOLUME /go/bin
 
 # Set entrypoint and cmd to build application
-ENTRYPOINT ["/bin/bash", "-c"]
-CMD ["go build -ldflags=\"-X main.PORT=$PORT\" -a -o app ."]
+ENTRYPOINT ["/tmp/make_app.sh"]

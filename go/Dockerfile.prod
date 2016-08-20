@@ -9,7 +9,7 @@ ARG PORT
 EXPOSE $PORT
 
 # Get the application executable
-COPY app /
+COPY bin/habitech /
 
 # Set entrypoint to run the application
-ENTRYPOINT ["/app"]
+ENTRYPOINT ["/habitech"]

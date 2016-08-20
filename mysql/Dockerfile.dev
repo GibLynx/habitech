@@ -1,0 +1,11 @@
+# Pull base image
+FROM mysql/mysql-server
+
+# Label this image as dev
+LABEL dev dev
+
+# Set the root password to b0ss
+ENV MYSQL_ROOT_PASSWORD b0ss
+
+# Create a volume to point to the host directory to contain the database files
+VOLUME /var/lib/mysql

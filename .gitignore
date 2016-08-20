@@ -6,3 +6,7 @@
 
 # Ignore commit message file.
 /CommitMsg.txt
+
+/go/bin/*
+/mysql/db/*
+/mysql/tar/*

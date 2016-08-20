@@ -1,0 +1,20 @@
+# Pull base image
+FROM mysql/mysql-server
+
+# Label this image as prod
+LABEL prod prod
+
+# Install dependencies
+RUN yum install -y tar
+
+# Create a volume to point to the host directory containing the DB
+VOLUME /var/lib/mysql
+
+# Set the root password to b0ss
+ENV MYSQL_ROOT_PASSWORD b0ss
+
+# Get the sql file and helper scripts
+COPY tar/default_mysql.tar.gz /tmp/
+COPY run_db.sh /
+
+ENTRYPOINT ["/run_db.sh"]
